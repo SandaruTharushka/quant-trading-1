@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quant-trading-1"
+version = "0.1.0"
+description = "Institutional AI quant infrastructure for futures and FX"
+requires-python = ">=3.11"
+readme = "README.md"
+
+[tool.setuptools.packages.find]
+include = [
+  "core*", "data*", "features*", "models*", "research*",
+  "backtesting*", "execution*", "risk*", "portfolio*",
+  "regime*", "monitoring*", "inference*", "api*",
+  "dashboard*", "mlops*", "deployment*"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"

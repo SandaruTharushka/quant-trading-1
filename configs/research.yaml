@@ -1,0 +1,43 @@
+seed: 1337
+
+universe:
+  - { symbol: ESZ4, asset_class: future, provider: databento }
+  - { symbol: NQZ4, asset_class: future, provider: databento }
+  - { symbol: EURUSD, asset_class: forex, provider: dukascopy }
+
+features:
+  fracdiff:
+    grid: [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    threshold: 1e-5
+    adf_pvalue: 0.05
+  cusum_threshold: 0.005
+  triple_barrier:
+    pt_mult: 2.0
+    sl_mult: 2.0
+    vert_bars: 50
+
+regime:
+  type: hmm
+  n_states: 4
+
+validation:
+  type: cpcv
+  n_groups: 6
+  n_test_groups: 2
+  embargo_pct: 0.01
+
+backtest:
+  bars_per_year: 252
+  cost_bps: 0.5
+  slippage_bps: 0.8
+
+portfolio:
+  vol_target_annual: 0.10
+  max_gross_leverage: 3.0
+  cvar_alpha: 0.95
+
+risk:
+  max_drawdown: 0.15
+  daily_loss_limit: 0.03
+  max_var: 0.05
+  max_cvar: 0.07

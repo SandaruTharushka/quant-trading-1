@@ -19,13 +19,16 @@ class StorageSettings(BaseSettings):
 
 
 class RiskSettings(BaseSettings):
-    max_drawdown: float = 0.15
-    daily_loss_limit: float = 0.03
-    vol_target_annual: float = 0.10
-    var_confidence: float = 0.99
-    cvar_confidence: float = 0.975
-    max_gross_leverage: float = 3.0
-    max_position_pct: float = 0.25
+    max_drawdown: float = Field(default=0.15, gt=0.0, lt=1.0)
+    daily_loss_limit: float = Field(default=0.03, gt=0.0, lt=1.0)
+    vol_target_annual: float = Field(default=0.10, gt=0.0)
+    var_confidence: float = Field(default=0.99, gt=0.0, lt=1.0)
+    cvar_confidence: float = Field(default=0.975, gt=0.0, lt=1.0)
+    max_var: float = Field(default=0.05, gt=0.0)
+    max_cvar: float = Field(default=0.07, gt=0.0)
+    max_gross_leverage: float = Field(default=3.0, gt=0.0)
+    max_position_pct: float = Field(default=0.25, gt=0.0, le=1.0)
+    vol_circuit_breaker: float = Field(default=0.04, gt=0.0)
 
 
 class ExecutionSettings(BaseSettings):

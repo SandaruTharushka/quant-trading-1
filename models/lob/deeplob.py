@@ -39,7 +39,7 @@ class DeepLOB(nn.Module):
             nn.Conv2d(32, 32, (1, 2), stride=(1, 2)), nn.LeakyReLU(0.01),
             nn.Conv2d(32, 32, (4, 1), padding=(1, 0)), nn.LeakyReLU(0.01),
             nn.Conv2d(32, 32, (4, 1), padding=(1, 0)), nn.LeakyReLU(0.01),
-            nn.Conv2d(32, 32, (1, lob_levels // 2), stride=(1, lob_levels // 2)),
+            nn.Conv2d(32, 32, (1, lob_levels), stride=(1, lob_levels)),
             nn.LeakyReLU(0.01),
         )
         self.inc = _Inception(32, 32)

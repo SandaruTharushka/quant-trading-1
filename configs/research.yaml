@@ -39,5 +39,9 @@ portfolio:
 risk:
   max_drawdown: 0.15
   daily_loss_limit: 0.03
+  var_confidence: 0.99
   max_var: 0.05
   max_cvar: 0.07
+  max_gross_leverage: 3.0
+  max_position_pct: 0.25
+  vol_circuit_breaker: 0.04

@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#17251e">
+    <title>Aurum | XAUUSDT Research</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/dashboard.css">
+    <script src="/assets/dashboard.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Aurum research home">
+        <span class="brand-mark" aria-hidden="true">A</span>
+        <span class="brand-name">AURUM<span class="brand-slash">/</span>RESEARCH</span>
+      </a>
+      <div class="topbar-meta">
+        <span class="environment-tag"><span class="tag-dot"></span> RESEARCH MODE</span>
+        <time id="utc-clock" class="utc-clock">UTC --:--:--</time>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <nav class="workspace-nav" aria-label="Project dashboard">
+        <button class="workspace-tab is-active" type="button" data-view="research-view" aria-selected="true">Live research</button>
+        <button class="workspace-tab" type="button" data-view="paper-view" aria-selected="false">Paper trading</button>
+        <button class="workspace-tab" type="button" data-view="market-view" aria-selected="false">Price chart</button>
+        <button class="workspace-tab" type="button" data-view="modules-view" aria-selected="false">Project modules</button>
+        <button class="workspace-tab" type="button" data-view="files-view" aria-selected="false">Source files</button>
+        <a class="workspace-docs" href="/docs" target="_blank" rel="noreferrer">API docs <span aria-hidden="true">↗</span></a>
+      </nav>
+
+      <section id="research-view" class="workspace-view">
+        <header class="research-header">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line"></span> LIVE MARKET RESEARCH <span class="eyebrow-divider">/</span> BINANCE FUTURES</p>
+            <h1>Research desk</h1>
+            <p class="subheading">Chronological model evaluation with costed backtests and a separate forward paper ledger.</p>
+          </div>
+          <div class="asset-control">
+            <label for="asset-select">Research asset</label>
+            <select id="asset-select" aria-label="Choose Binance Futures asset"><option value="XAUUSDT">XAUUSDT</option></select>
+          </div>
+        </header>
+
+        <div class="research-status-line">
+          <span id="research-status-dot" class="status-dot status-dot--waiting"></span>
+          <span id="research-status-text">Loading market history</span>
+          <span class="status-separator">/</span>
+          <span id="research-updated">Waiting for research snapshot</span>
+          <span class="research-live-price"><span id="research-price-symbol">XAUUSDT</span><strong id="research-mark-price">—</strong><small id="research-mark-time">MARK PRICE</small></span>
+        </div>
+
+        <section class="research-signal-row" aria-live="polite">
+          <div>
+            <p class="panel-kicker">MODEL CANDIDATE</p>
+            <h2 id="research-signal">Waiting for data</h2>
+            <p id="research-model-name" class="research-note">Logistic Regression · 1h candles</p>
+          </div>
+          <div class="signal-confidence">
+            <span class="panel-kicker">PROBABILITY UP</span>
+            <strong id="research-probability">—</strong>
+          </div>
+          <div class="signal-confidence">
+            <span class="panel-kicker">OOS ACCURACY</span>
+            <strong id="research-accuracy">—</strong>
+          </div>
+          <div class="signal-confidence">
+            <span class="panel-kicker">TARGET POSITION</span>
+            <strong id="research-weight">—</strong>
+          </div>
+        </section>
+
+        <section class="research-columns">
+          <article class="research-panel">
+            <div class="research-panel-heading">
+              <div><p class="panel-kicker">HISTORICAL EVALUATION</p><h2>Out-of-sample backtest</h2></div>
+              <span id="backtest-window" class="panel-meta">80/20 chronological split</span>
+            </div>
+            <div class="result-table-wrap">
+              <table class="result-table">
+                <thead><tr><th>Strategy</th><th>Net return</th><th>Sharpe</th><th>Max drawdown</th><th>Hit rate</th></tr></thead>
+                <tbody>
+                  <tr><th>Logistic model</th><td id="bt-model-return">—</td><td id="bt-model-sharpe">—</td><td id="bt-model-drawdown">—</td><td id="bt-model-hit">—</td></tr>
+                  <tr><th>24-bar momentum</th><td id="bt-momentum-return">—</td><td id="bt-momentum-sharpe">—</td><td id="bt-momentum-drawdown">—</td><td id="bt-momentum-hit">—</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p id="backtest-method" class="research-footnote">Costs included; awaiting closed candles.</p>
+          </article>
+
+          <article class="research-panel">
+            <div class="research-panel-heading">
+              <div><p class="panel-kicker">PORTFOLIO + RISK</p><h2>Position controls</h2></div>
+              <span id="risk-state" class="risk-state">WAITING</span>
+            </div>
+            <dl class="research-details">
+              <div><dt>Annual target volatility</dt><dd id="portfolio-target-vol">—</dd></div>
+              <div><dt>Recent realized volatility</dt><dd id="portfolio-realized-vol">—</dd></div>
+              <div><dt>Position cap</dt><dd id="portfolio-cap">—</dd></div>
+              <div><dt>Current paper weight</dt><dd id="portfolio-current-weight">—</dd></div>
+              <div><dt>Risk events</dt><dd id="risk-events">None</dd></div>
+            </dl>
+          </article>
+        </section>
+
+        <section class="forward-panel">
+          <div class="research-panel-heading">
+            <div><p class="panel-kicker">AFTER-START TRACKING</p><h2>Forward paper test</h2></div>
+            <span class="paper-badge">NO ORDERS · PAPER ONLY</span>
+          </div>
+          <div class="forward-metrics">
+            <div><span>Observed bars</span><strong id="forward-bars">0</strong></div>
+            <div><span>Paper equity</span><strong id="forward-equity">1.0000</strong></div>
+            <div><span>Net return</span><strong id="forward-return">0.00%</strong></div>
+            <div><span>Worst drawdown</span><strong id="forward-drawdown">0.00%</strong></div>
+            <div><span>Hit rate</span><strong id="forward-hit">—</strong></div>
+          </div>
+          <p id="forward-caption" class="research-footnote">Forward observations start after this app session begins. Historical holdout metrics are shown separately above.</p>
+        </section>
+
+        <footer class="page-footer research-footer">
+          <span id="research-bar-count">Waiting for bars</span>
+          <span>Research baseline only <i></i> No live trading or execution</span>
+        </footer>
+      </section>
+
+      <section id="paper-view" class="workspace-view" hidden>
+        <header class="section-heading">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line"></span> SIMULATED EXECUTION <span class="eyebrow-divider">/</span> NO BROKER ORDERS</p>
+            <h1>Paper trading</h1>
+            <p class="subheading">Practice market orders against the live mark price with configured fees and risk limits.</p>
+          </div>
+          <div class="paper-actions"><button id="paper-reset" class="button button--quiet" type="button">Reset account</button></div>
+        </header>
+
+        <div id="paper-notice" class="paper-notice" role="status">Paper account starts with 10,000 USDT.</div>
+        <section class="paper-metrics" aria-live="polite">
+          <div><span>Account equity</span><strong id="paper-equity">—</strong></div>
+          <div><span>Available cash</span><strong id="paper-cash">—</strong></div>
+          <div><span>Net return</span><strong id="paper-return">—</strong></div>
+          <div><span>Realized PnL</span><strong id="paper-realized">—</strong></div>
+          <div><span>Fees paid</span><strong id="paper-fees">—</strong></div>
+          <div><span>Drawdown</span><strong id="paper-drawdown">—</strong></div>
+        </section>
+
+        <section class="paper-layout">
+          <article class="paper-panel">
+            <div class="research-panel-heading"><div><p class="panel-kicker">MARKET ORDER</p><h2>Open or reduce a position</h2></div><span id="paper-price" class="panel-meta">Mark price —</span></div>
+            <form id="paper-order-form" class="paper-form">
+              <label>Asset<select id="paper-symbol"><option value="XAUUSDT">XAUUSDT</option></select></label>
+              <label>Side<select id="paper-side"><option value="buy">Buy / long</option><option value="sell">Sell / short</option></select></label>
+              <label>Quantity<input id="paper-quantity" type="number" min="0.000001" step="any" value="0.01" required></label>
+              <button class="button button--primary" type="submit">Place paper order</button>
+            </form>
+            <p class="research-footnote">Orders use the latest available Binance mark price. Position and leverage limits are enforced before execution.</p>
+          </article>
+          <article class="paper-panel">
+            <div class="research-panel-heading"><div><p class="panel-kicker">RISK STATE</p><h2 id="paper-state">Ready</h2></div><span class="paper-badge">SIMULATION</span></div>
+            <dl class="research-details paper-details"><div><dt>Gross exposure</dt><dd id="paper-exposure">—</dd></div><div><dt>Open positions</dt><dd id="paper-position-count">0</dd></div><div><dt>Account status</dt><dd id="paper-status">PAPER</dd></div></dl>
+          </article>
+        </section>
+
+        <section class="paper-panel paper-table-panel">
+          <div class="research-panel-heading"><div><p class="panel-kicker">BOOK</p><h2>Open positions</h2></div></div>
+          <div class="result-table-wrap"><table class="result-table"><thead><tr><th>Symbol</th><th>Quantity</th><th>Avg entry</th><th>Mark</th><th>Notional</th><th>Unrealized PnL</th><th></th></tr></thead><tbody id="paper-positions"><tr><td colspan="7" class="paper-empty">No open positions</td></tr></tbody></table></div>
+        </section>
+        <section class="paper-panel paper-table-panel"><div class="research-panel-heading"><div><p class="panel-kicker">EXECUTION LOG</p><h2>Recent paper trades</h2></div></div><div class="result-table-wrap"><table class="result-table"><thead><tr><th>Time</th><th>Symbol</th><th>Side</th><th>Quantity</th><th>Fill</th><th>Fee</th><th>Realized PnL</th></tr></thead><tbody id="paper-trades"><tr><td colspan="7" class="paper-empty">No trades yet</td></tr></tbody></table></div></section>
+      </section>
+
+      <div id="market-view" class="workspace-view" hidden>
+      <section class="page-heading">
+        <div>
+          <p class="eyebrow"><span class="eyebrow-line"></span> MARKET MONITOR <span class="eyebrow-divider">/</span> <span id="chart-symbol">XAUUSDT</span></p>
+          <h1 id="chart-title">Gold <span>/</span> Tether</h1>
+          <p class="subheading">Binance USDⓈ-M Futures <span class="subheading-dot">·</span> 1-hour research signal</p>
+        </div>
+        <div class="feed-statuses" aria-label="Feed connection status">
+          <div class="feed-status">
+            <span id="price-status-dot" class="status-dot status-dot--waiting"></span>
+            <div><span class="feed-label">MARK PRICE</span><span id="price-status-text" class="feed-value">Connecting</span></div>
+          </div>
+          <div class="feed-status">
+            <span id="signal-status-dot" class="status-dot status-dot--waiting"></span>
+            <div><span class="feed-label">SIGNAL FEED</span><span id="signal-status-text" class="feed-value">Connecting</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="signal-panel" class="signal-panel signal-panel--flat" aria-live="polite">
+        <div class="signal-primary">
+          <p class="panel-kicker">LATEST CLOSED-BAR OUTPUT</p>
+          <div class="signal-heading-row">
+            <span id="signal-symbol" class="signal-symbol">—</span>
+            <h2 id="signal-label">Waiting for data</h2>
+          </div>
+          <p id="signal-caption" class="signal-caption">Loading recent 1-hour candles</p>
+        </div>
+        <div class="signal-score">
+          <div class="score-heading"><span class="panel-kicker">MOMENTUM SCORE</span><span id="signal-score" class="score-number">--</span></div>
+          <div class="score-meter" role="img" aria-label="Signal score scale from short to long">
+            <span class="meter-center"></span><span id="score-marker" class="meter-marker"></span>
+          </div>
+          <div class="meter-labels"><span>SHORT</span><span>NEUTRAL</span><span>LONG</span></div>
+        </div>
+      </section>
+
+      <section class="market-layout">
+        <article class="chart-panel">
+          <div class="chart-heading">
+            <div>
+              <p class="panel-kicker">PRICE ACTION</p>
+              <h2>Hourly closes <span class="chart-period">72 bars</span></h2>
+            </div>
+            <div class="chart-price-block">
+              <span id="price-kind" class="feed-label">LAST 1H CLOSE</span>
+              <strong id="mark-price" class="mark-price">—</strong>
+              <span id="price-updated" class="price-updated">Waiting for tick</span>
+            </div>
+          </div>
+          <div class="chart-wrap">
+            <canvas id="price-chart" aria-label="XAUUSDT recent hourly closing prices"></canvas>
+            <div id="chart-empty" class="chart-empty">Waiting for candle history</div>
+          </div>
+          <div class="chart-footer"><span><span class="legend-line"></span> 1h candle close</span><span id="last-candle-time">Last close —</span></div>
+        </article>
+
+        <aside class="side-column">
+          <section class="metric-panel">
+            <p class="panel-kicker">SIGNAL DETAILS</p>
+            <dl class="detail-list">
+              <div><dt>Last candle close</dt><dd id="candle-close">—</dd></div>
+              <div><dt>Signal timestamp</dt><dd id="signal-time">—</dd></div>
+              <div><dt>Rule threshold</dt><dd class="mono">+0.50 / −0.50</dd></div>
+              <div><dt>Lookback</dt><dd class="mono">24 hourly bars</dd></div>
+            </dl>
+          </section>
+          <section class="notice-panel">
+            <span class="notice-mark" aria-hidden="true">!</span>
+            <div>
+              <p class="notice-title">Research output only</p>
+              <p class="notice-copy">Rule-based candidate signal. No orders are placed. Validate out of sample and account for fees, funding and slippage.</p>
+            </div>
+          </section>
+        </aside>
+      </section>
+
+      <footer class="page-footer">
+        <span>PUBLIC BINANCE FUTURES DATA</span>
+        <span>Signals update on closed 1h candles <i></i> Mark price updates live</span>
+      </footer>
+      </div>
+
+      <section id="modules-view" class="workspace-view" hidden>
+        <header class="section-heading">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line"></span> WORKSPACE DIRECTORY</p>
+            <h1>Project modules</h1>
+            <p class="subheading">Implemented capabilities and research components in this workspace.</p>
+          </div>
+          <span id="module-count" class="directory-count">Loading modules</span>
+        </header>
+        <div id="module-grid" class="module-grid" aria-live="polite"></div>
+      </section>
+
+      <section id="files-view" class="workspace-view" hidden>
+        <header class="section-heading">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line"></span> READ-ONLY BROWSER</p>
+            <h1>Source files</h1>
+            <p class="subheading">Browse project code and configuration from the dashboard.</p>
+          </div>
+          <label class="file-search-label" for="file-search">Filter files</label>
+          <input id="file-search" class="file-search" type="search" placeholder="Search by path" autocomplete="off">
+        </header>
+        <div class="file-browser">
+          <aside class="file-list-panel" aria-label="Project files">
+            <p id="file-count" class="file-list-heading">Loading files</p>
+            <div id="file-list" class="file-list"></div>
+          </aside>
+          <section class="source-panel" aria-label="Selected source file">
+            <div class="source-heading">
+              <span id="source-path">Select a file</span>
+              <span id="source-language" class="source-language"></span>
+            </div>
+            <pre class="source-code"><code id="source-content">Choose a file from the list to inspect its contents.</code></pre>
+          </section>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
